@@ -1,7 +1,6 @@
 {% extends 'basic.html'%}
     {% block title %} Home Page {% endblock %}
     {% block css %}
-    
     body {
       background-color: #FFDDDD;  
       background-size: cover;
@@ -20,10 +19,6 @@
         text-align: center;
     }
     
-    .loader-container {
-        text-align: center;
-        margin-top: 1rem;
-    }
     
     {% endblock %}
     {% block body %}
@@ -32,9 +27,9 @@
             <div class="card text-center w-75">
                 <div class="card-header d-flex justify-content-between" style="border-radius: 25px 25px 0px 0px;">
                     <ul class="nav nav-tabs card-header-tabs">
-                      <li style="padding: 0.5rem 1rem 0.5rem 1rem;" class="nav-item">
-                        <a href="/">Home</a>
-                      </li>
+                        <li style="padding: 0.5rem 1rem 0.5rem 1rem;" class="nav-item">
+                            <a href="/">Home</a>
+                          </li>
                       <li class="nav-item">
                         <p style="padding: 0.5rem 1rem 0.5rem 1rem;">Username: {{user.username}}</p>
                       </li>
@@ -49,38 +44,15 @@
                 <h1 class="card-title no-padding fs-20" style="text-align: center; color: #000080; font-size: 3.5rem; padding: 2rem;">YouTube Video Timestamp Generator</h1>
                 <h3 class="card-text" style="text-align: center; font-size: 1.5rem; padding-bottom: 2rem;">This is free utility that allows users to generate timestamp for a youtube video</h3>
                 
-                
-                {% comment %} <link rel="stylesheet" type="text/css" href="{% load static %}{% static 'loader.css'%}"> 
-                <div class="loader hidden" style="text-align: center;"></div> {% endcomment %}
+                {% if transcript %}
+                    <p>{{transcript}}</p>
 
-                <form id="submit-form" method="post" action="{% url 'generate_transcript' %}">
-                    {% csrf_token %}
-                    <label for="youtube_link">Provide your link below:</label><br>
-                    <input type="url" id="youtube_link" name="youtube_link" size="50rem"><br><br>
-                    <input type="submit" class="btn btn-primary" value="Submit">
-                </form>
-
-                <div class="loader-container">
-                    <link rel="stylesheet" type="text/css" href="{% load static %}{% static 'loader.css'%}"> 
-                    <div class="loader hidden"></div>
-                </div>
-    
+                {% else %}
+                    <p>Transcript not found</p>
+                {% endif%}
         
                 </div>
             </div>
         </div>
         
     {% endblock %}
-
-    {% block js %}
-    <script>
-        // Show loader when form is submitted
-        document.getElementById("submit-form").addEventListener("submit", function() {
-            // Hide the form
-            document.getElementById("submit-form").style.display = "none";
-            // Show the loader
-            document.querySelector(".loader").classList.remove("hidden");
-        });
-    </script>   
-        
-    {% endblock%}

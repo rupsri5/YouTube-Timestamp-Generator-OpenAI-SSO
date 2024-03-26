@@ -8,10 +8,14 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login
 from django.http import HttpResponseRedirect
 
+from django.views.decorators.csrf import csrf_exempt
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import ModelBackend
 from django.contrib import messages
 from django.contrib.auth import logout as auth_logout
+
+from .services import extract_transcript_from_youtube
 
 @api_view(["GET"])
 def ping(request):
@@ -65,4 +69,21 @@ def logout(request):
 def dashboard(request):
     return render(request,"dashboard.html")
 
+# youtube link
+@csrf_exempt
+@login_required(login_url="/login/")
+def generate_transcript(request):
+    if request.method == 'POST':
+        youtube_link = request.POST.get('youtube_link')
 
+        # Extract transcript from YouTube
+        transcript = extract_transcript_from_youtube(youtube_link)
+        
+        if not transcript:
+            messages.error(request,"Transcript not found for this video")
+            return render(request, 'dashboard.html', {'error': 'Transcript not found'})
+        
+        messages.success(request, "Transcript generated successfully")
+        return render(request, 'transcript.html', {"transcript": transcript})
+    else:
+        return render(request, 'transcript.html', {'error': 'Only POST requests are allowed'})

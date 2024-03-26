@@ -128,6 +128,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -139,3 +142,4 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET=os.getenv("GOOGLE-AUTH-SECRET")
 
 LOGIN_REDIRECT_URL="/"
 SESSION_COOKIE_AGE=1200
+OPENAI_API_KEY = os.getenv("OPENAI-API-KEY")
