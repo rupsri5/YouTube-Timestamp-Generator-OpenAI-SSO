@@ -45,10 +45,24 @@
                 <h3 class="card-text" style="text-align: center; font-size: 1.5rem; padding-bottom: 2rem;">This is free utility that allows users to generate timestamp for a youtube video</h3>
                 
                 {% if transcript %}
-                    <p>{{transcript}}</p>
+                <div class="table-container d-flex justify-content-center" style="border: 3px solid; border-radius: 20px;">
+                <table style="text-align: left;">
+                    <tr style="padding: 1rem;">
+                      <th>Timestamp and Subject</th>
+                    </tr>
+                    {% for i in transcript%}
+
+                    <tr style="padding: 1rem;">
+                        <td>{{i}}</td>
+                    </tr> 
+                        
+                    {% endfor %}
+                    
+                  </table>
 
                 {% else %}
                     <p>Transcript not found</p>
+                </div>
                 {% endif%}
         
                 </div>

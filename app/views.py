@@ -78,12 +78,11 @@ def generate_transcript(request):
 
         # Extract transcript from YouTube
         transcript = extract_transcript_from_youtube(youtube_link)
-        
         if not transcript:
             messages.error(request,"Transcript not found for this video")
             return render(request, 'dashboard.html', {'error': 'Transcript not found'})
         
-        messages.success(request, "Transcript generated successfully")
+        # messages.success(request, "Transcript generated successfully")
         return render(request, 'transcript.html', {"transcript": transcript})
     else:
         return render(request, 'transcript.html', {'error': 'Only POST requests are allowed'})

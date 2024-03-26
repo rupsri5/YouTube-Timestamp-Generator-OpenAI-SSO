@@ -9,7 +9,12 @@
     <title>{% block title %} {% endblock %}</title>
     
     <style>
+        body{
+            background-image: url("{% load static %}{% static 'bg_YT.jpeg' %}");
+        }
+
         {% block css %} {% endblock %}
+    
     </style>
   </head>
 
