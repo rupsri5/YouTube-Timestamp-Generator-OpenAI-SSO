@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        .card {
+            border: 1px solid;
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="center">
+        <div class="card">
+            <h2>Login</h2>
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags}}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+
+                </ul>
+            {% endif %}
+            <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+                <label for="username">Username</label><br>
+                <input type="text" id="username" name="username"><br>
+                <label for="password">Password</label><br>
+                <input type="text" id="password" name="password"><br>
+                <input type="submit" value="Submit">
+            </form>
+            <p>OR</p>
+            <a href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a>
+            <p>Don't have an account?<a href="#" onclick="toggleForms()">Sign up</a></p>
+        </div>
+        <div class="card" style="display: none;">
+            <h2>Sign Up</h2>
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags}}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <form method="post" action="{% url 'signup' %}">
+                {% csrf_token %}
+                <label for="username">Username</label><br>
+                <input type="text" id="username" name="username"><br>
+                <label for="email">Email</label><br>
+                <input type="email" id="email" name="email"><br>
+                <label for="password">Password</label><br>
+                <input type="text" id="password" name="password"><br>
+                <input type="submit" value="Submit">
+            </form>
+            <p>OR</p>
+            <a href="{% url 'social:begin' 'google-oauth2' %}">Sign up with Google</a>
+            <p>Already have an account?<a href="#" onclick="toggleForms()">Login</a></p>
+        </div>
+    </div>
+    <script>
+        function toggleForms() {
+            var loginForm = document.getElementsByClassName('card')[0];
+            var signupForm = document.getElementsByClassName('card')[1];
+            loginForm.style.display = loginForm.style.display==='none' ? 'block' : 'none'; 
+            signupForm.style.display = signupForm.style.display==='none' ? 'block' : 'none'; 
+        }
+
+        setTimeout(function() {
+            var messages = document.getElementsByClassName("messages")[0];
+            if (messages){
+                messages.style.display = 'none'
+            }
+        },3000);
+    </script>
+</body>
+</html>

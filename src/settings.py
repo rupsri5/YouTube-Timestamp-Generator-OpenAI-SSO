@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,8 +41,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app'
+    "rest_framework",
+    'app',
+    "social_django",
 ]
+
+AUTHENTICATION_BACKENDS=(
+    "social_core.backends.google.GoogleOAuth2",
+    "django.contrib.auth.backends.ModelBackend"
+)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -122,3 +133,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY=os.getenv("GOOGLE-AUTH-KEY")
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET=os.getenv("GOOGLE-AUTH-SECRET")
+
+LOGIN_REDIRECT_URL="/"
+SESSION_COOKIE_AGE=1200
