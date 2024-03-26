@@ -1,7 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <style>
+{% extends 'basic.html'%}
+
+    {% block title %} Login Page {% endblock %}
+
+    {% block css %}
         .center {
             display: flex;
             justify-content: center;
@@ -11,19 +12,27 @@
         }
         .card {
             border: 1px solid;
+            border-radius: 25px;
             padding: 20px;
-            width: 300px;
+            width: 60%;
             text-align: center;
         }
         .error {
             color: red;
         }
-    </style>
-</head>
-<body>
+
+        form{
+            padding-bottom: 1rem;
+        }
+    {% endblock %}
+
+{% block body %}
     <div class="center">
         <div class="card">
-            <h2>Login</h2>
+            <div class="card-header" style="border-radius: 25px;">
+                <h1 class="card-title no-padding fs-20" style="text-align: center; color: #000080; font-size: 3rem; padding: 2rem;">YouTube Video Timestamp Generator</h1>
+            </div>
+            <h2 style="font-family:Georgia, 'Times New Roman', Times, serif; padding-top: 0.7rem;">Login</h2>
             {% if messages %}
                 <ul class="messages">
                     {% for message in messages %}
@@ -37,15 +46,22 @@
                 <label for="username">Username</label><br>
                 <input type="text" id="username" name="username"><br>
                 <label for="password">Password</label><br>
-                <input type="text" id="password" name="password"><br>
+                <input type="password" id="password" name="password"><br><br>
                 <input type="submit" value="Submit">
             </form>
             <p>OR</p>
-            <a href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a>
+            <a href="{% url 'social:begin' 'google-oauth2' %}">
+                <button class="btn btn-primary">
+                Login with Google
+                </button>
+            </a>
             <p>Don't have an account?<a href="#" onclick="toggleForms()">Sign up</a></p>
         </div>
         <div class="card" style="display: none;">
-            <h2>Sign Up</h2>
+            <div class="card-header" style="border-radius: 25px;">
+                <h1 class="card-title no-padding fs-20" style="text-align: center; color: #000080; font-size: 3rem; padding: 2rem;">YouTube Video Timestamp Generator</h1>
+            </div>
+            <h2 style="font-family:Georgia, 'Times New Roman', Times, serif; padding-top: 0.7rem;">Sign Up</h2>
             {% if messages %}
                 <ul class="messages">
                     {% for message in messages %}
@@ -60,14 +76,20 @@
                 <label for="email">Email</label><br>
                 <input type="email" id="email" name="email"><br>
                 <label for="password">Password</label><br>
-                <input type="text" id="password" name="password"><br>
+                <input type="password" id="password" name="password"><br><br>
                 <input type="submit" value="Submit">
             </form>
             <p>OR</p>
-            <a href="{% url 'social:begin' 'google-oauth2' %}">Sign up with Google</a>
+            <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn btn-primary">
+                {% comment %} <button type="button" class="btn btn-primary"> {% endcomment %}
+                    Sign up with Google
+                {% comment %} </button> {% endcomment %}
+            </a>
             <p>Already have an account?<a href="#" onclick="toggleForms()">Login</a></p>
         </div>
     </div>
+{% endblock %}
+{% block js %}
     <script>
         function toggleForms() {
             var loginForm = document.getElementsByClassName('card')[0];
@@ -83,5 +105,4 @@
             }
         },3000);
     </script>
-</body>
-</html>
+{% endblock %}

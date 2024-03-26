@@ -1,8 +1,56 @@
-<html>
-    <body>
-        <h2>Dashboard</h2>
-        <p>Username: {{user.username}}</p>
-        <p>Email: {{user.email}}</p>
-        <button onclick="location.href='{% url 'logout' %}'">Logout</button>
-    </body>
-</html>
+{% extends 'basic.html'%}
+    {% block title %} Home Page {% endblock %}
+    {% block css %}
+    body {
+      background-color: #FFDDDD;  
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 100vh;
+    }
+    .card{
+        border-radius: 25px; 
+        margin-top: 5rem;
+    }
+    
+    form label{
+        font-size: 20px;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        text-align: center;
+    }
+    
+    
+    {% endblock %}
+    {% block body %}
+
+        <div class="row justify-content-center">
+            <div class="card text-center w-75">
+                <div class="card-header d-flex justify-content-between" style="border-radius: 25px 25px 0px 0px;">
+                    <ul class="nav nav-tabs card-header-tabs">
+                      <li class="nav-item">
+                        <p style="padding: 0.5rem 1rem 0.5rem 1rem;">Username: {{user.username}}</p>
+                      </li>
+                      <li class="nav-item">
+                        <p style="padding: 0.5rem 1rem 0.5rem 1rem;">Email: {{user.email}}</p>
+                      </li>
+                    </ul>
+                     
+                        <button class="btn btn-secondary" onclick="location.href='{% url 'logout' %}'" style="padding: 0.5rem 1rem 0.5rem 1rem;">Logout</button>
+                      
+                    
+                  </div>
+                
+                <div class="card-body">
+                <h1 class="card-title no-padding fs-20" style="text-align: center; color: #000080; font-size: 3.5rem; padding: 2rem;">YouTube Video Timestamp Generator</h1>
+                <h3 class="card-text" style="text-align: center; font-size: 1.5rem; padding-bottom: 2rem;">This is free utility that allows users to generate timestamp for a youtube video</h3>
+                <form method="post" action="{% url 'dashboard' %}">
+                    <label for="ytlink">Provide your link below:</label><br>
+                    <input type="url" id="ytlink" name="ytlink" size="50rem"><br><br>
+                    <input type="submit" class="btn btn-primary" value="Submit">
+                </form>
+        
+                </div>
+            </div>
+        </div>
+        
+    {% endblock %}
