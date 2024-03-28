@@ -68,8 +68,8 @@ pip install -r requirements.txt
 ###### .env file example: Create and add ```your_key``` here: 
 
 ```powershell
-GOOGLE_AUTH_KEY=""
-GOOGLE_AUTH_SECRET=""
+GOOGLE-AUTH-KEY=""
+GOOGLE-AUTH-SECRET=""
 OPENAI_API_KEY=""
 ```
 

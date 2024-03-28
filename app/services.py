@@ -22,8 +22,16 @@ def extract_transcript_from_youtube(youtube_link):
     for i in range(0,len(transcript),30):
         end_index=i+30 if i+30<len(transcript) else len(transcript)
         # structured_data.append({"transcript":transcript[i:end_index]})
-        output= ChainFactory().timestamp_chain().run(transcript=transcript[i:end_index])
-        output_list.append(output)
+        count=0
+        while count<3:
+            try:
+                output= ChainFactory().timestamp_chain().run(transcript=transcript[i:end_index])
+                output_list.append(output)
+                break
+            except Exception as e:
+                count+=1
+                print(i,len(transcript), count, e)
+            
         
     ### Using a paid OpenAI key allows us to make parallel calls, which typically take 4-5 seconds to process.
     ### Below is the code for making parallel calls using a paid OpenAI key.
@@ -40,5 +48,8 @@ def extract_transcript_from_youtube(youtube_link):
         output_json = eval(output_json)
         for key in output_json.keys():
             output_text_list.append(f"{format_duration(int(output_json[key]))} || {key}")
+    
+    if not output_text_list:
+        output_text_list.append("RateLimitError: Please try after sometime or ask developer to add new OpenAI key")
 
     return output_text_list

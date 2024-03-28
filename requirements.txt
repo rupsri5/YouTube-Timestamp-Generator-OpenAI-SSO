@@ -11,3 +11,5 @@ langchain-community
 tiktoken
 transformers
 youtube_transcript_api
+gunicorn==20.0.4
+whitenoise

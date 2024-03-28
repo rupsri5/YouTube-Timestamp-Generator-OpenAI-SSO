@@ -21,6 +21,7 @@ from .services import extract_transcript_from_youtube
 def ping(request):
     return JsonResponse({"msg":"Hello from youtube timestamp generator"},safe=False,status=status.HTTP_200_OK)
 
+@csrf_exempt
 def login(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect("/")
@@ -37,6 +38,7 @@ def login(request):
     else:
         return render(request,"login.html")
 
+@csrf_exempt
 def signup(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect("/")
@@ -60,11 +62,13 @@ def signup(request):
                 return HttpResponseRedirect("/")
     else:
         return render(request,"login.html")
-    
+
+@csrf_exempt    
 def logout(request):
     auth_logout(request)
     return HttpResponseRedirect("/login")
 
+@csrf_exempt
 @login_required(login_url="/login/")
 def dashboard(request):
     return render(request,"dashboard.html")
